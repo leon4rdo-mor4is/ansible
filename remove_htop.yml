@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: remove htop package
+    yum:
+      name: htop
+      state: absent
