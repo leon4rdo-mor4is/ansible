@@ -1,13 +1,34 @@
 ---
 
 - hosts: all
-  become: true
   tasks:
 
-  - name: update repository index
-    yum:
-      update_cache: yes
-
-  - name: install htop package
+  - name: OL Install HTOP package
     yum:
       name: htop
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: OL Install HTTPD package
+    yum:
+      name: httpd
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: OL Install PHP package
+    yum:
+      name: php
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: DE Install HTOP package
+    apt:
+      name: htop
+    when: ansible_distribution in ["Debian"]
+
+  - name: DE Install APACHE package
+    apt:
+      name: apache2
+    when: ansible_distribution in ["Debian"]
+
+  - name: DE Install PHP package
+    apt:
+      name: libapache2-mod-php
+    when: ansible_distribution in ["Debian"]

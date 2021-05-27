@@ -1,10 +1,40 @@
 ---
 
 - hosts: all
-  become: true
   tasks:
-  
-  - name: remove htop package
+
+  - name: OL Remove HTOP package
     yum:
       name: htop
       state: absent
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: OL Remove HTTPD package
+    yum:
+      name: httpd
+      state: absent
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: OL Remove PHP package
+    yum:
+      name: php
+      state: absent
+    when: ansible_distribution in ["OracleLinux"]
+
+  - name: DE Remove HTOP package
+    apt:
+      name: htop
+      state: absent
+    when: ansible_distribution in ["Debian"]
+
+  - name: DE Remove APACHE package
+    apt:
+      name: apache2
+      state: absent
+    when: ansible_distribution in ["Debian"]
+
+  - name: DE Remove PHP package
+    apt:
+      name: libapache2-mod-php
+      state: absent
+    when: ansible_distribution in ["Debian"]
